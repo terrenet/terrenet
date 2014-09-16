@@ -1,0 +1,112 @@
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <meta name="format-detection" content="telephone=no" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="leaflet/leaflet.css" />
+      <style>
+         body { padding: 0; margin: 0;}
+         html, body, #map { height: 100%;}
+         #geolocation { background-color: rgba(255, 255, 255, 0.8); position: absolute; bottom: 0; z-index:20;}
+         #showall { background-color: rgba(255, 255, 255, 0.8); z-index:30; position:absolute; right:0;visibility:hidden;}
+         #loading { position:absolute; bottom:0; }
+         .leaflet-shadow-pane { display: none !important; }
+      </style>
+      <script src="jquery/jquery-1.11.1.js"></script> 
+   </head>
+   <body>
+      <div id="map">
+         <div id="geolocation"></div>
+         <!--     
+         <div id="showall">
+            <a href="javascript:showAllPoi();">MOSTRA TUTTI</a>
+         </div>
+         -->
+      </div>
+      <div id="loading">
+         Loading map...
+      </div>
+
+      <script src="leaflet/leaflet.js"></script> 
+      <script>
+         var lat;
+         var lon;
+         var map;
+         // GEOLOCATION FUNCTION
+         navigator.geolocation.getCurrentPosition(onSuccess, onError);
+         function onSuccess(position) {
+            window.lat = position.coords.latitude
+            window.lon = position.coords.longitude
+            initializeMap();
+         }
+         function onError(error) {
+            alert('code: '    + error.code    + '\n' +
+               'message: ' + error.message + '\n');
+         }
+         // MAP FUNCTION
+         function initializeMap() {
+            var element = document.getElementById('geolocation');
+            element.innerHTML = lat+', '+lon;
+            var map = L.map('map').setView([lat, lon], 14);      
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+               attribution: '&copy; <a href="http://terrenet.it">Terrenet</a>',
+               maxZoom: 17,
+            }).addTo(map);
+            var serverUrl = 'http://terrenet.it/appconn/mappoi.php?lat='+lat+'&lon='+lon;
+            var jqxhr = $.getJSON(serverUrl, function(data) {
+                  L.geoJson(data,
+                     {
+                        onEachFeature: function(feature, layer){
+                           if (feature.properties && feature.properties.popupContent) {
+                              layer.bindPopup(feature.properties.popupContent);
+                           }
+                        }
+                  }).addTo(map);
+            });
+            /*
+            map.on('click', function(e){
+               map.panTo(new L.LatLng(e.latlng.lat, e.latlng.lng));        
+               map.setZoom(14);
+               var serverUrl = 'http://terrenet.it/appconn/mappoi.php?lat='+e.latlng.lat+'&lon='+e.latlng.lng;
+               var jqxhr = $.getJSON(serverUrl, function(data) {
+                     L.geoJson(data,
+                        {
+                           onEachFeature: function(feature, layer){
+                              if (feature.properties && feature.properties.popupContent) {
+                                 layer.bindPopup(feature.properties.popupContent);
+                              }
+                           }
+                     }).addTo(map);
+               });
+            });
+            */
+            // Called when Map zoom changes
+            map.on('zoomend', function() {
+               if (map.getZoom() < 7) {
+                  map.setZoom(7);
+               }
+            });
+            //showall = document.getElementById('showall');
+            //showall.style.visibility='visible';
+            document.getElementById('loading').style.visibility='hidden';
+         }
+         window.map = map;
+         /*
+         function showAllPoi(){
+            var serverUrl = 'http://terrenet.it/appconn/mappoi.php';
+            var jqxhr = $.getJSON(serverUrl, function(data) {
+                  L.geoJson(data,
+                     {
+                        onEachFeature: function(feature, layer){
+                           if (feature.properties && feature.properties.popupContent) {
+                              layer.bindPopup(feature.properties.popupContent);
+                           }
+                        }
+                  }).addTo(map);
+            });
+         }
+         */
+      </script>
+   </body>
+</html>
