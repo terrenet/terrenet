@@ -73,7 +73,7 @@
 
                 <!-- popup displayed when button clicked -->
                 <div data-role="popup" id="popupInfo" class="ui-content" data-theme="e" style="max-width:350px;">
-                  <p style="text-align:right;" id="status-message">Trying to find out where you are</p>
+                  <p style="text-align:right;" id="status-message">Individuazione della posizione</p>
                 </div>
                 
             </div>
@@ -129,43 +129,52 @@
                         <input id="panel-distance-range" type="range" data-highlight="true" name="rangeSlider" min="0" max="100" value="100" data-show-value="false" step="5" data-popup-enabled="false">
                         <h4>Filtro Categoria</h4>
                         <h4>
-                           <label><input type="checkbox" name="" value="" checked>Abbazia / Convento / Monastero</label>
-                           <label><input type="checkbox" name="" value="" checked>Albero</label>
-                           <label><input type="checkbox" name="" value="" checked>Altro Luogo</label>
-                           <label><input type="checkbox" name="" value="" checked>Archeologia Industriale</label>
-                           <label><input type="checkbox" name="" value="" checked>Area Naturale</label>
-                           <label><input type="checkbox" name="" value="" checked>Area Urbana</label>
-                           <label><input type="checkbox" name="" value="" checked>Biblioteca</label>
-                           <label><input type="checkbox" name="" value="" checked>Borgo</label>
-                           <label><input type="checkbox" name="" value="" checked>Cappella</label>
-                           <label><input type="checkbox" name="" value="" checked>Castello</label>
-                           <label><input type="checkbox" name="" value="" checked>Chiesa</label>
-                           <label><input type="checkbox" name="" value="" checked>Chiostro</label>
-                           <label><input type="checkbox" name="" value="" checked>Collina</label>
-                           <label><input type="checkbox" name="" value="" checked>Conservatorio</label>
-                           <label><input type="checkbox" name="" value="" checked>Edificio Civile</label>
-                           <label><input type="checkbox" name="" value="" checked>Fiume</label>
-                           <label><input type="checkbox" name="" value="" checked>Fontana</label>
-                           <label><input type="checkbox" name="" value="" checked>Area Urbana</label>
-                           <label><input type="checkbox" name="" value="" checked>Giardino</label>
-                           <label><input type="checkbox" name="" value="" checked>Lago</label>
-                           <label><input type="checkbox" name="" value="" checked>Monte</label>
-                           <label><input type="checkbox" name="" value="" checked>Oratorio</label>
-                           <label><input type="checkbox" name="" value="" checked>Palazzo</label>
-                           <label><input type="checkbox" name="" value="" checked>Parco</label>
-                           <label><input type="checkbox" name="" value="" checked>Parco Urbano</label>
-                           <label><input type="checkbox" name="" value="" checked>Piazza</label>
-                           <label><input type="checkbox" name="" value="" checked>Ponte</label>
-                           <label><input type="checkbox" name="" value="" checked>Riserva Naturale</label>
-                           <label><input type="checkbox" name="" value="" checked>Santuario</label>
-                           <label><input type="checkbox" name="" value="" checked>Scuola</label>
-                           <label><input type="checkbox" name="" value="" checked>Sentiero</label>
-                           <label><input type="checkbox" name="" value="" checked>Sito Archeologico</label>
-                           <label><input type="checkbox" name="" value="" checked>Statua / Monumento</label>
-                           <label><input type="checkbox" name="" value="" checked>Teatro</label>
-                           <label><input type="checkbox" name="" value="" checked>Torre</label>
-                           <label><input type="checkbox" name="" value="" checked>Torrente</label>
-                           <label><input type="checkbox" name="" value="" checked>Villa</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Abbazia / Convento / Monastero" checked>Abbazia / Convento / Monastero</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Albero" checked>Albero</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Altro Luogo" checked>Altro Luogo</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Archeologia Industriale" checked>Archeologia Industriale</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Area Naturale" checked>Area Naturale</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Area Urbana" checked>Area Urbana</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Biblioteca" checked>Biblioteca</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Borgo" checked>Borgo</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Cappella" checked>Cappella</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Castello" checked>Castello</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Chiesa" checked>Chiesa</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Chiostro" checked>Chiostro</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Collina" checked>Collina</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Conservatorio" checked>Conservatorio</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Edificio Civile" checked>Edificio Civile</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Fiume" checked>Fiume</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Fontana" checked>Fontana</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Area Urbana" checked>Area Urbana</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Giardino" checked>Giardino</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Lago" checked>Lago</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Monte" checked>Monte</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Oratorio" checked>Oratorio</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Palazzo" checked>Palazzo</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Parco" checked>Parco</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Parco Urbano" checked>Parco Urbano</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Piazza" checked>Piazza</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Ponte" checked>Ponte</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Riserva Naturale" checked>Riserva Naturale</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Santuario" checked>Santuario</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Scuola" checked>Scuola</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Sentiero" checked>Sentiero</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Sito Archeologico" checked>Sito Archeologico</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Statua / Monumento" checked>Statua / Monumento</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Teatro" checked>Teatro</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Torre" checked>Torre</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Torrente" checked>Torrente</label>
+                           <label><input type="checkbox" onchange="test()" name="" value="Villa" checked>Villa</label>
+                           <script type="text/javascript">
+                              function test(){
+                                 var values = $("input[type='checkbox']:checked").map(function () {
+                                 return this.value;
+                                 }).get();
+                                 World.tipo = values;
+                                 World.reloadPlaces();
+                              }
+                           </script>
                         </h4>
                     </div>
             </div>

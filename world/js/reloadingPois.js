@@ -1,10 +1,11 @@
-// information about server communication. This sample webservice is provided by Wikitude and returns random dummy places near given location
+// information about serve0r communication. This sample webservice is provided by Wikitude and returns random dummy places near given location
 var ServerInformation = {
 	POIDATA_SERVER: "http://terrenet.it/appconn/listpoi.php",
 	//POIDATA_SERVER: "http://example.wikitude.com/GetSamplePois/",
 	POIDATA_SERVER_ARG_LAT: "lat",
 	POIDATA_SERVER_ARG_LON: "lon",
-	POIDATA_SERVER_ARG_NR_POIS: "nrPois"
+	POIDATA_SERVER_ARG_NR_POIS: "nrPois",
+   POIDATA_SERVER_ARG_TIPO: "tipo[]"
 };
 
 // implementation of AR-Experience (aka "World")
@@ -13,6 +14,7 @@ var World = {
 	//  user's latest known location, accessible via userLocation.latitude, userLocation.longitude, userLocation.altitude
 	userLocation: null,
 
+   tipo: new Array(),
 	// you may request new data from server periodically, however: in this sample data is only requested once
 	isRequestingData: false,
 
@@ -116,7 +118,7 @@ var World = {
 
 		// request data if not already present
 		if (!World.initiallyLoadedData) {
-			World.requestDataFromServer(lat, lon);
+			World.requestDataFromServer(lat, lon,'');
 			World.initiallyLoadedData = true;
 		} else if (World.locationUpdateCounter === 0) {
 			// update placemark distance information frequently, you max also update distances only every 10m with some more effort
@@ -251,7 +253,7 @@ var World = {
 	reloadPlaces: function reloadPlacesFn() {
 		if (!World.isRequestingData) {
 			if (World.userLocation) {
-				World.requestDataFromServer(World.userLocation.latitude, World.userLocation.longitude);
+				World.requestDataFromServer(World.userLocation.latitude, World.userLocation.longitude, World.tipo);
 			} else {
 				World.updateStatusMessage('Impossibile trovare la posizione.', true);
 			}
@@ -259,9 +261,8 @@ var World = {
 			World.updateStatusMessage('Caricamento POIs...', true);
 		}
 	},
-
 	// request POI data
-	requestDataFromServer: function requestDataFromServerFn(lat, lon) {
+	requestDataFromServer: function requestDataFromServerFn(lat, lon, tipo) {
       //alert(lat+' - '+lon);
 		// set helper var to avoid requesting places while loading
 		World.isRequestingData = true;
@@ -271,7 +272,13 @@ var World = {
       //lon = 15.251768;
       //alert(lat+" - "+lon);
 		// server-url to JSON content provider
-		var serverUrl = ServerInformation.POIDATA_SERVER + "?" + ServerInformation.POIDATA_SERVER_ARG_LAT + "=" + lat + "&" + ServerInformation.POIDATA_SERVER_ARG_LON + "=" + lon + "&" + ServerInformation.POIDATA_SERVER_ARG_NR_POIS + "=20";
+		var serverUrl = ServerInformation.POIDATA_SERVER + "?" +
+         ServerInformation.POIDATA_SERVER_ARG_LAT + "=" + lat + "&" + 
+         ServerInformation.POIDATA_SERVER_ARG_LON + "=" + lon + "&" + 
+         ServerInformation.POIDATA_SERVER_ARG_NR_POIS + "=20";
+      if(tipo.length > 0){
+         serverUrl += '&' + ServerInformation.POIDATA_SERVER_ARG_TIPO + "=" + World.tipo.join('&tipo[]=');
+      };
 
 		var jqxhr = $.getJSON(serverUrl, function(data) {
 			World.loadPoisFromJsonData(data);
@@ -296,7 +303,6 @@ var World = {
 	}
 
 };
-
 
 /* forward locationChanges to custom function */
 AR.context.onLocationChanged = World.locationChanged;
